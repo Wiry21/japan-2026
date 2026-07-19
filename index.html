@@ -757,8 +757,7 @@ const ROUTE_WAYPOINTS = [
   { type: 'airport', id: 'svo',     mode: 'ground'           },
   { type: 'airport', id: 'szx',     mode: 'flight'           },
   { type: 'city',    id: 'macau',   mode: 'ferry'            },  // SZX Shekou → Macau direct ferry
-  { type: 'city',    id: 'hk',      mode: 'ferry'            },  // Macau → HK Sheung Wan ferry
-  { type: 'airport', id: 'hkg',     mode: 'train'            },  // HK → HKG via Airport Express
+  { type: 'airport', id: 'hkg',     mode: 'bus'              },  // Macau → HKG via HZMB shuttle bus (мост)
   { type: 'airport', id: 'oka',     mode: 'flight'           },
   { type: 'city',    id: 'naha',    mode: 'ground'           },
   { type: 'city',    id: 'motobu',  mode: 'bus'              },
@@ -1340,32 +1339,29 @@ const START_PT = getWaypointCoords(ROUTE_WAYPOINTS[0]);
 // by city id was producing wrong fallbacks. Each entry is the index in
 // ROUTE_WAYPOINTS where the day "ends" (where they sleep that night, or the
 // last point reached on a same-day trip).
-// NB: indices shifted by +1 after the HK city waypoint was inserted between
-// Macau and HKG (Macau→HK ferry + HK→HKG Airport Express). Anything from
-// the old position 4 onward is +1.
 const DAY_TO_WPIDX = [
   1,   // 06.06 Москва → boarding SVO              (svo)
   3,   // 07.06 Шэньчжэнь → ferry → Макао          (macau)
-  7,   // 08.06 ferry HK + Airport Express → Наха  (naha)
-  8,   // 09.06 → Мотобу                           (motobu)
-  8,   //  10.06 stay Мотобу + Тюрауми
-  11,  // 11.06 Tokashiki day trip → back to Naha  (Prince Smart Inn)
-  14,  // 12.06 fly → Нагоя                        (nagoya)
-  15,  // 13.06 → Сиракава                         (shirakawa)
-  16,  // 14.06 → Такаяма                          (takayama)
-  20,  // 15.06 train Tokyo → Celestine Shiba      (celestine_shiba)
-  20,  //  16.06 stay Celestine + Warner Bros
-  21,  // 17.06 → Henn na Ginza                    (henn_ginza)
-  21,  //  18.06 stay Henn + DisneySea
-  22,  // 19.06 → 9h Akasaka                       (nine_h_akasaka)
-  22,  //  20.06 stay 9h + teamLab
-  23,  // 21.06 → Keio Akasaka                     (keio_akasaka)
-  26,  // 22.06 Romancecar → Yusakaso Хаконэ       (yusakaso_hakone)
-  29,  // 23.06 Romancecar back → Tokyu Nihonbashi (tokyu_nihonbashi)
-  29,  //  24.06 stay Nihonbashi + Акихабара
-  31,  // 25.06 Камакура day trip → back to Nihonbashi
-  34,  // 26.06 fly → Гонконг Eaton                (hk)
-  37,  // 27.06 fly → Москва                       (moscow)
+  6,   // 08.06 HZMB bus → HKG → fly → Наха        (naha)
+  7,   // 09.06 → Мотобу                           (motobu)
+  7,   //  10.06 stay Мотобу + Тюрауми
+  10,  // 11.06 Tokashiki day trip → back to Naha  (Prince Smart Inn)
+  13,  // 12.06 fly → Нагоя                        (nagoya)
+  14,  // 13.06 → Сиракава                         (shirakawa)
+  15,  // 14.06 → Такаяма                          (takayama)
+  19,  // 15.06 train Tokyo → Celestine Shiba      (celestine_shiba)
+  19,  //  16.06 stay Celestine + Warner Bros
+  20,  // 17.06 → Henn na Ginza                    (henn_ginza)
+  20,  //  18.06 stay Henn + DisneySea
+  21,  // 19.06 → 9h Akasaka                       (nine_h_akasaka)
+  21,  //  20.06 stay 9h + teamLab
+  22,  // 21.06 → Keio Akasaka                     (keio_akasaka)
+  25,  // 22.06 Romancecar → Yusakaso Хаконэ       (yusakaso_hakone)
+  28,  // 23.06 Romancecar back → Tokyu Nihonbashi (tokyu_nihonbashi)
+  28,  //  24.06 stay Nihonbashi + Акихабара
+  30,  // 25.06 Камакура day trip → back to Nihonbashi
+  33,  // 26.06 fly → Гонконг Eaton                (hk)
+  36,  // 27.06 fly → Москва                       (moscow)
 ];
 
 // =========================================================
